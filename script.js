@@ -1,4 +1,32 @@
-const API_KEY = CONFIG.API_KEY;
+// API Key Handling
+let API_KEY = null;
+
+// Try to get key from config (local dev) or localStorage (production)
+if (typeof CONFIG !== 'undefined' && CONFIG.API_KEY && CONFIG.API_KEY !== 'YOUR_API_KEY_HERE') {
+    API_KEY = CONFIG.API_KEY;
+} else {
+    const storedKey = localStorage.getItem('pplx_api_key');
+    if (storedKey) {
+        API_KEY = storedKey;
+    } else {
+        // Show modal if no key found
+        document.getElementById('api-key-modal').classList.add('active');
+    }
+}
+
+// Handle API Key Input
+document.getElementById('save-api-key-btn').addEventListener('click', () => {
+    const input = document.getElementById('api-key-input');
+    const key = input.value.trim();
+
+    if (key.startsWith('pplx-')) {
+        API_KEY = key;
+        localStorage.setItem('pplx_api_key', key);
+        document.getElementById('api-key-modal').classList.remove('active');
+    } else {
+        alert('Please enter a valid Perplexity API key starting with "pplx-"');
+    }
+});
 const API_URL = 'https://api.perplexity.ai/chat/completions';
 
 
