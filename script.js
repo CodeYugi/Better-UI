@@ -1,4 +1,4 @@
-const API_KEY = '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';
+const API_KEY = CONFIG.API_KEY;
 const API_URL = 'https://api.perplexity.ai/chat/completions';
 
 
