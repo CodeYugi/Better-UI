@@ -90,6 +90,15 @@ for (let i = 0; i < accordions.length; i++) {
 
 
 async function startGeneration() {
+    console.log('Start generation clicked');
+
+    // Check for API Key
+    if (!API_KEY) {
+        console.log('No API Key found, showing modal');
+        document.getElementById('api-key-modal').classList.add('active');
+        return;
+    }
+
     const prompt = elements.promptInput.value.trim();
     if (!prompt) {
         alert('Please enter a description for your website.');
