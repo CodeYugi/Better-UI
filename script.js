@@ -1,32 +1,4 @@
-// API Key Handling
-let API_KEY = null;
-
-// Try to get key from config (local dev) or localStorage (production)
-if (typeof CONFIG !== 'undefined' && CONFIG.API_KEY && CONFIG.API_KEY !== 'YOUR_API_KEY_HERE') {
-    API_KEY = CONFIG.API_KEY;
-} else {
-    const storedKey = localStorage.getItem('pplx_api_key');
-    if (storedKey) {
-        API_KEY = storedKey;
-    } else {
-        // Show modal if no key found
-        document.getElementById('api-key-modal').classList.add('active');
-    }
-}
-
-// Handle API Key Input
-document.getElementById('save-api-key-btn').addEventListener('click', () => {
-    const input = document.getElementById('api-key-input');
-    const key = input.value.trim();
-
-    if (key.startsWith('pplx-')) {
-        API_KEY = key;
-        localStorage.setItem('pplx_api_key', key);
-        document.getElementById('api-key-modal').classList.remove('active');
-    } else {
-        alert('Please enter a valid Perplexity API key starting with "pplx-"');
-    }
-});
+const API_KEY = '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';
 const API_URL = 'https://api.perplexity.ai/chat/completions';
 
 
@@ -90,15 +62,6 @@ for (let i = 0; i < accordions.length; i++) {
 
 
 async function startGeneration() {
-    console.log('Start generation clicked');
-
-    // Check for API Key
-    if (!API_KEY) {
-        console.log('No API Key found, showing modal');
-        document.getElementById('api-key-modal').classList.add('active');
-        return;
-    }
-
     const prompt = elements.promptInput.value.trim();
     if (!prompt) {
         alert('Please enter a description for your website.');
@@ -227,27 +190,18 @@ async function generateV2(code) {
 
 async function generateV3(code) {
     log('Enhancing UI/UX and aesthetics...', 'info');
-    const systemPrompt = `You are a master prompt engineer and elite web developer. Create a single-file, ultra-modern personal portfolio website for a world-class UI/UX designer. Employ the latest advanced CSS techniques and best practices for hover effects, including 3D transforms, layered animations, dynamic gradients, blur and shadow interplay, and fine-tuned keyframe sequences. Ensure seamless, hardware-accelerated transitions optimized for performance and polished UX.
+    const systemPrompt = `You are a master prompt engineer and elite web developer. Your goal is to take the existing code and the user's original request, and transform it into an ultra-modern, high-performance website.
 
-Requirements:
+    Original User Request: "${state.prompt}"
 
-Full single HTML file with embedded CSS and JS (no external except trusted CDNs if needed).
+    Instructions:
+    1.  **Respect the User's Intent:** The website MUST match the user's original request (e.g., if they asked for a pet shop, keep it a pet shop). Do NOT change the content to a generic portfolio unless the user asked for one.
+    2.  **Enhance Design:** Employ the latest advanced CSS techniques (glassmorphism, gradients, 3D transforms, complex hover effects).
+    3.  **Polish UI/UX:** Ensure smooth transitions, responsive layout, and a premium feel.
+    4.  **Code Quality:** Return a single, complete HTML file with embedded CSS/JS. No external CSS/JS files (except standard CDNs).
+    5.  **Completeness:** Return ONLY the complete, ready-to-deploy HTML code inside a markdown code block. Ensure nothing is truncated.
 
-Modern HTML5 semantic structure with clean, accessible code.
-
-Minimalistic design with bold typography, extensive white space, and a sophisticated dark/light mode toggle.
-
-Complex multi-state hover effects for buttons, links, portfolio images, and interactive elements—leveraging sibling selectors, pseudo-elements, and CSS variables.
-
-Subtle but elegant animations triggering on scroll and hover for immersive interactivity.
-if there toggle in the website so make sure it works like make sure it works on the website.
-Responsive and mobile-friendly layout with smooth, native-like touch interactions.
-
-Sophisticated but concise content layout: hero section, portfolio previews with dynamic overlays, about, and contact form.
-
-Perfect balance of creativity and professionalism to showcase best-in-class UI/UX skills.
-
-Return ONLY the complete, ready-to-deploy HTML code inside a markdown code block, ensuring nothing is truncated.`;
+    Do not change the core subject matter of the website. Make it look amazing, but keep it true to the user's idea.`;
 
     const content = await callPerplexity([
         { role: 'system', content: systemPrompt },
@@ -265,7 +219,24 @@ async function enhancePrompt(originalPrompt) {
     - Specific UI components (e.g., hero section, feature grid, contact form).
     - Technical requirements (e.g., responsive design, hover effects, smooth transitions).
     - Color palette suggestions if none provided.
-    
+    - add advance css hover effects. 
+    - add advance css animations.
+    - add advance css transitions.
+    - add advance css keyframes.
+    - add advance css filters. 
+    -add advance css things 
+    -make sure the colur code is good and make it premium.
+    -make sure make looks website professional and premium.
+    -make sure make looks website modern and premium.
+    -make sure make looks website responsive and premium.
+    -make sure make looks website fast and premium.
+    -make sure make looks website secure and premium.
+    -make sure make looks website fast and premium.
+    -make sure everything works properly 
+    -no mistake
+    -give full code 
+    -make sure website is like no one tell its build by AI
+    -make sure website is minimal and premium
     Keep the core intent of the user but make it "premium".
     Return ONLY the enhanced prompt text. Do not add any conversational filler.`;
 
