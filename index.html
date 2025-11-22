@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Website Generator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+</head>
+
+<body>
+    <div class="app-container">
+        <header>
+            <div class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span>WebGen AI</span>
+            </div>
+            <p class="tagline">Iterative AI Website Builder</p>
+        </header>
+
+        <main>
+            <section id="input-section" class="active">
+                <div class="input-wrapper">
+                    <h1>What do you want to build?</h1>
+                    <p class="subtitle">Describe your website idea, and I'll build, refine, and polish it for you.</p>
+                    <div class="textarea-container">
+                        <textarea id="user-prompt"
+                            placeholder="e.g., A minimalist portfolio for a photographer with a dark theme and a gallery grid..."></textarea>
+                        <button id="generate-btn">
+                            <span>Start Building</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="process-section">
+                <div class="stepper">
+                    <div class="step" id="step-1">
+                        <div class="step-icon">1</div>
+                        <div class="step-content">
+                            <h3>Drafting</h3>
+                            <p>Generating initial structure</p>
+                        </div>
+                        <div class="loader"></div>
+                    </div>
+                    <div class="step-line"></div>
+                    <div class="step" id="step-2">
+                        <div class="step-icon">2</div>
+                        <div class="step-content">
+                            <h3>Refining</h3>
+                            <p>Optimizing code & logic</p>
+                        </div>
+                        <div class="loader"></div>
+                    </div>
+                    <div class="step-line"></div>
+                    <div class="step" id="step-3">
+                        <div class="step-icon">3</div>
+                        <div class="step-content">
+                            <h3>Polishing</h3>
+                            <p>Enhancing UI & Design</p>
+                        </div>
+                        <div class="loader"></div>
+                    </div>
+                </div>
+
+                <div class="console-output" id="console-output">
+                    <div class="console-header">
+                        <span>System Activity</span>
+                    </div>
+                    <div class="console-logs" id="console-logs">
+                        <!-- Logs will appear here -->
+                    </div>
+                </div>
+            </section>
+
+            <section id="result-section">
+                <div class="result-header">
+                    <h2>Final Result</h2>
+                    <div class="actions">
+                        <button id="view-code-btn" class="secondary-btn">View Code History</button>
+                        <button id="download-btn" class="primary-btn">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="7 10 12 15 17 10" />
+                                <line x1="12" y1="15" x2="12" y2="3" />
+                            </svg>
+                            Download Source
+                        </button>
+                    </div>
+                </div>
+
+                <div class="preview-container">
+                    <iframe id="preview-frame"></iframe>
+                </div>
+
+                <div id="code-history-modal" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>Generation History</h3>
+                            <button class="close-modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="version-group">
+                                <button class="accordion">Version 1: Initial Draft</button>
+                                <div class="panel">
+                                    <pre><code id="code-v1" class="language-html"></code></pre>
+                                </div>
+                            </div>
+                            <div class="version-group">
+                                <button class="accordion">Version 2: Refined Code</button>
+                                <div class="panel">
+                                    <pre><code id="code-v2" class="language-html"></code></pre>
+                                </div>
+                            </div>
+                            <div class="version-group">
+                                <button class="accordion">Version 3: Final Polish</button>
+                                <div class="panel">
+                                    <pre><code id="code-v3" class="language-html"></code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
